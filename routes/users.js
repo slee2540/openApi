@@ -11,6 +11,7 @@ router.get("/", function(req, res, next) {
   // req.body 는 Post
   var pageNo = req.query.pageNo;
   var numOfRows = req.query.numOfRows;
+  var date = req.query.date;
 
   console.log(req.query);
 
@@ -41,7 +42,7 @@ router.get("/", function(req, res, next) {
     "&" +
     encodeURIComponent("DEAL_YMD") +
     "=" +
-    encodeURIComponent("201804"); /* 계약월 */
+    encodeURIComponent(date); /* 계약월 */
 
   request(
     {
