@@ -5,13 +5,12 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get("/", function(req, res, next) {
-  // console.log(res,req,next)
-  // console.log(req.param, req.query, req.body)
   // req.query 는 Get
   // req.body 는 Post
   var pageNo = req.query.pageNo;
   var numOfRows = req.query.numOfRows;
   var date = req.query.date;
+  var gu = req.query.gu;
 
   console.log(req.query);
 
@@ -37,7 +36,7 @@ router.get("/", function(req, res, next) {
     "&" +
     encodeURIComponent("LAWD_CD") +
     "=" +
-    encodeURIComponent("11200"); /* 지역코드 */
+    encodeURIComponent(gu); /* 지역코드 */
   queryParams +=
     "&" +
     encodeURIComponent("DEAL_YMD") +
@@ -50,11 +49,6 @@ router.get("/", function(req, res, next) {
       method: "GET"
     },
     function(error, response, body) {
-      // console.log("Status", response.statusCode);
-      // console.log("Headers", JSON.stringify(response.headers));
-
-      // console.log("Response Received", body);
-      // var xml = "<root>Hello xml2js!</root>"
       parseString(body, function(err, result) {
         // console.dir(result.response.body[0].items[0].item);
         console.log("발송되었습니다.");
