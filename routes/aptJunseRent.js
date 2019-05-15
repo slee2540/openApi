@@ -4,11 +4,7 @@ var parseString = require("xml2js").parseString;
 var router = express.Router();
 require("dotenv").config();
 
-/* GET users listing. */
 router.get("/", function(req, res, next) {
-  // req.query 는 Get
-  // req.body 는 Post
-
   var date = req.query.date;
   var gu = req.query.gu;
 
@@ -39,11 +35,11 @@ router.get("/", function(req, res, next) {
     },
     function(error, response, body) {
       parseString(body, function(err, result) {
-        console.log("Reponse received", result.response.body[0]);
+        // console.log("Reponse received", result.response.body[0]);
         // console.log("발송되었습니다.");
         // console.dir(result.response.body[0].items[0].item[0]['거래금액']);
         var data = result.response.body[0].items[0].item;
-        console.log(data);
+        // console.log(data);
         res.status(200).send(data);
       });
     }

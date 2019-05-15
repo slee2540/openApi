@@ -34,7 +34,7 @@ router.get("/", function(req, res, next) {
     function(error, response, body) {
       parseString(body, function(err, result) {
         // console.log("발송되었습니다.");
-        console.log("Reponse received", body);
+        // console.log("Reponse received", body);
         // console.dir(result.response.body[0].items[0].item[0]['거래금액']);
         var data = result.response.body[0].items[0].item;
         res.status(200).send(data);
