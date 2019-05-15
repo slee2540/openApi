@@ -2,36 +2,25 @@ var express = require("express");
 var request = require("request");
 var parseString = require("xml2js").parseString;
 var router = express.Router();
+require("dotenv").config();
 
 /* GET users listing. */
 router.get("/", function(req, res, next) {
   // req.query 는 Get
   // req.body 는 Post
-  var pageNo = req.query.pageNo;
-  var numOfRows = req.query.numOfRows;
+
   var date = req.query.date;
   var gu = req.query.gu;
 
   console.log(req.query);
 
-  // res.render('index', { title: 'Express' });
-  var service_key =
-    "buLmLYdvptLpRsGxoQZZcM%2FDU%2BzPaLJSFCakumIYFGvGT%2BEbiC8ncXmaCJ8Lkb9wE4iDGS%2B1Qu4WqpnYccfDWw%3D%3D";
+  var service_key = process.env.openApiKey;
+
   var url =
-    "http://openapi.molit.go.kr/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTradeDev";
+    "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptRent";
 
   var queryParams =
     "?" + encodeURIComponent("ServiceKey") + "=" + service_key; /* Service Key*/
-  queryParams +=
-    "&" +
-    encodeURIComponent("pageNo") +
-    "=" +
-    encodeURIComponent(pageNo); /* 페이지번호 */
-  queryParams +=
-    "&" +
-    encodeURIComponent("numOfRows") +
-    "=" +
-    encodeURIComponent(numOfRows); /* 한 페이지 결과 수 */
   queryParams +=
     "&" +
     encodeURIComponent("LAWD_CD") +
@@ -50,12 +39,11 @@ router.get("/", function(req, res, next) {
     },
     function(error, response, body) {
       parseString(body, function(err, result) {
-        // console.dir(result.response.body[0].items[0].item);
-        console.log("발송되었습니다.");
-        // console.log(result.response.body[0])
-        // console.log(result.response.body[0].items[0].item)
+        console.log("Reponse received", result.response.body[0]);
+        // console.log("발송되었습니다.");
         // console.dir(result.response.body[0].items[0].item[0]['거래금액']);
         var data = result.response.body[0].items[0].item;
+        console.log(data);
         res.status(200).send(data);
       });
     }
