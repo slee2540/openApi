@@ -10,10 +10,6 @@ var aptRentSchema = new Schema({
   아파트: String,
   전용면적: String,
   층: String
-
-  // gu: String,
-  // date: String
-  // published_date: { type: Date, default: Date.now }
 });
 
 module.exports = mongoose.model("aptRent", aptRentSchema);
