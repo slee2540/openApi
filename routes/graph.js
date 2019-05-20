@@ -17,7 +17,6 @@ router.get("/:type", async function(req, res, next) {
     if (type == "0") {
       //지역별
       console.log(gu);
-
       const aptInfo = await aptRent.find({ 구: gu });
       console.log(aptInfo);
     } else if (type == "1") {
